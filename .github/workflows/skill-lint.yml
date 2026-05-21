@@ -1,0 +1,66 @@
+name: Skill Lint
+
+on:
+  push:
+    branches: [main, master]
+    paths-ignore:
+      - "assets/**"
+      - "**/*.png"
+      - "**/*.jpg"
+      - "**/*.svg"
+  pull_request:
+    branches: [main, master]
+    paths-ignore:
+      - "assets/**"
+      - "**/*.png"
+      - "**/*.jpg"
+      - "**/*.svg"
+  workflow_dispatch: {}
+
+concurrency:
+  group: skill-lint-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  validate-skills:
+    name: Validate SKILL.md files
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Validate frontmatter, links, and lock parity
+        run: |
+          python3 scripts/validate_skills.py \
+            --strict \
+            --lock-check api/skills.lock \
+            --junit junit-results.xml
+
+      - name: Upload JUnit results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: skill-lint-junit
+          path: junit-results.xml
+          if-no-files-found: warn
+
+      - name: Summary
+        if: success()
+        run: |
+          echo "### Skill Lint OK" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "All SKILL.md files passed frontmatter + link + lock validation." >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "**Discovered skills:**" >> "$GITHUB_STEP_SUMMARY"
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
+          find . -name 'SKILL.md' -not -path './.git/*' | sort >> "$GITHUB_STEP_SUMMARY"
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
