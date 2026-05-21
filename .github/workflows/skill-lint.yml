@@ -45,6 +45,13 @@ jobs:
             --lock-check api/skills.lock \
             --junit junit-results.xml
 
+      - name: Lock file fix hint
+        if: failure()
+        run: |
+          echo "::error::api/skills.lock is out of date. After editing any SKILL.md, run:"
+          echo "::error::  ./scripts/update_lock.sh"
+          echo "::error::Then commit api/skills.lock in the same PR."
+
       - name: Upload JUnit results
         if: always()
         uses: actions/upload-artifact@v4

@@ -24,7 +24,7 @@ Mark all that apply:
 ## Quality gates (must all pass)
 
 - [ ] `python3 scripts/validate_skills.py --strict` is green locally.
-- [ ] `python3 scripts/validate_skills.py --lock-check api/skills.lock` is green (or `api/skills.lock` updated in the same PR).
+- [ ] If any `SKILL.md` changed: ran `./scripts/update_lock.sh` and committed `api/skills.lock`.
 - [ ] All new code blocks are real, compiling Kotlin / Gradle / YAML — no pseudocode.
 - [ ] Pinned versions match the latest stable on the date of this PR.
 - [ ] No banned antipatterns introduced (`GlobalScope`, naked `_state.value =`, `collectAsState()`, hardcoded UI strings, `mutableStateListOf` in ViewModel, unscoped DI).

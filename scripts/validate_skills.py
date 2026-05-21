@@ -254,8 +254,9 @@ def validate_lock(
             result.issues.append(
                 Issue(
                     lock_path,
-                    f"Skill content changed — bump lock entry for {shared}",
-                    severity="warning",
+                    f"Lock stale for {shared} (expected {expected[shared][:8]}…, "
+                    f"actual {actual[shared][:8]}…) — run: ./scripts/update_lock.sh",
+                    severity="error",
                 )
             )
 
