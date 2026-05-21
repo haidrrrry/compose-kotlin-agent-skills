@@ -5,6 +5,9 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the 
 
 ## [Unreleased]
 
+### Added
+- README / AGENTS.md / SKILL.md — **"What this is NOT"** section (vs Alexa/Bixby, LLM SDK, Gradle lib) and correct comparison to [aldefy/Lumen](https://github.com/aldefy/Lumen).
+
 ### Planned
 - Live verification prompt (skill self-test against a sample diff).
 - KMP/CMP sub-skill split out of `references/08-kmp-cmp.md`.
