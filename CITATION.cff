@@ -1,0 +1,24 @@
+cff-version: 1.2.0
+title: compose-kotlin-agent-skills
+message: >-
+  If you use this agent skill kit in research or tooling, please cite it.
+type: software
+authors:
+  - given-names: Haider
+    family-names: Ali Khan
+    affiliation: Independent
+    github-username: haidrrrry
+repository-code: 'https://github.com/haidrrrry/compose-kotlin-agent-skills'
+url: 'https://github.com/haidrrrry/compose-kotlin-agent-skills'
+license: MIT
+keywords:
+  - android
+  - kotlin
+  - jetpack-compose
+  - ai-agents
+  - cursor
+  - claude-code
+  - mvi
+  - mvvm
+version: 2.1.0
+date-released: '2026-05-21'
