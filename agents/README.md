@@ -1,7 +1,7 @@
 # Agent Setup Guides
 
 Install [compose-kotlin-agent-skills](https://github.com/haidrrrry/compose-kotlin-agent-skills) for your coding agent. Each file below is copy-paste setup for that platform.
-
+ 
 **Universal snippet:** [\_shared-snippet.md](_shared-snippet.md)
 
 ## IDE & Desktop Agents
