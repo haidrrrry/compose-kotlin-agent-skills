@@ -81,8 +81,17 @@ Replace `<agent-dir>` per agent (`.cursor`, `.claude`, `.codex`, `.windsurf`, et
 | [`examples/animated-clock/`](examples/animated-clock/) | [AnimatedClockJetpacl](https://github.com/haidrrrry/AnimatedClockJetpacl) — Canvas, CMP, particles |
 | [`examples/authenticator/`](examples/authenticator/) | [Authenticator](https://github.com/haidrrrry/Authenticator) — Room, MVVM, Koin, theming |
 
+## What This Repository Is
+
+**Agent skill kit = markdown instructions for coding AIs** (Cursor, Claude Code, Codex, etc.) — not an Android library, not Alexa/Bixby, not an on-device LLM SDK.
+
+Install: `git clone` into `.cursor/skills/compose-kotlin-agent-skills` or `.claude/skills/compose-kotlin-agent-skills`.
+
+**Not the same as** UI libraries like [aldefy/Lumen](https://github.com/aldefy/Lumen) (coachmark/onboarding Composables). Lumen = ship UI in your app. This repo = teach your **coding agent** how to write Kotlin/Compose correctly.
+
 ## Boundaries — Do Not
 
+- Confuse this repo with a Gradle dependency, voice-assistant skill, or Compose UI library
 - Invent dependency versions — use the version table in `SKILL.md`
 - Use `GlobalScope`, naked `_state.value =`, or hardcoded UI strings
 - Skip `LazyColumn` keys or use `collectAsState()` on Android screens

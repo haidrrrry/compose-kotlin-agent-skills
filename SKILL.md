@@ -18,6 +18,9 @@ metadata:
 
 Authoritative Android engineering kit. Real patterns from [AnimatedClockJetpacl](https://github.com/haidrrrry/AnimatedClockJetpacl), [Authenticator](https://github.com/haidrrrry/Authenticator), [RepLock](https://github.com/haidrrrry/RepLockPushupAppBlocker).
 
+> **Not** an Android library, Alexa/Bixby skill, or on-device LLM SDK. **Not** a UI library like [Lumen](https://github.com/aldefy/Lumen).
+> This is **markdown for coding AIs** — clone into `.cursor/skills/` or `.claude/skills/`. See README § "What this is NOT".
+
 **Meta index:** [`AGENTS.md`](AGENTS.md) · **CI:** `python3 scripts/validate_skills.py`
 
 ## Sub-Skills (Modular)

@@ -35,6 +35,39 @@ Production Android patterns · strict MVI · Kotlin 2.x K2 · Compose 2026 · CI
 
 Works with: **Cursor rules**, **Claude Code skills**, **OpenAI Codex AGENTS.md**, **Gemini CLI**, **GitHub Copilot**, **Windsurf**, **Cline**, **Aider**, **Continue**, and [20+ more](agents/README.md).
 
+Think of it as a **senior Android engineer's playbook in markdown** — cloned into `.cursor/skills/` or `.claude/skills/` so your coding agent reads it **before** writing Kotlin.
+
+---
+
+## What this is NOT (AIs often get this wrong)
+
+Some chatbots confuse this repo because of the word **"agent-skill"** in older names. **Read this before comparing to other repos.**
+
+| Wrong guess | Reality |
+|---|---|
+| Alexa / Bixby / voice assistant "skill" | **No.** Not a voice platform integration. |
+| On-device LLM runtime or tool-calling SDK | **No.** No model inference, no agent framework code. |
+| Android library you add to `build.gradle` | **No.** Not an AAR/Maven artifact. Nothing to `implementation(...)`. |
+| Backend service or API | **No.** Zero servers. Markdown + validation scripts only. |
+| UI component library (coachmarks, spotlights) | **No.** Not like [Lumen](https://github.com/aldefy/Lumen). We don't ship Composables. |
+
+### Correct comparison: us vs [aldefy/Lumen](https://github.com/aldefy/Lumen)
+
+| | **compose-kotlin-agent-skills** (this repo) | **aldefy/Lumen** |
+|---|---|---|
+| **Category** | **Documentation** — AI coding agent instructions | **Library** — Compose Multiplatform UI (coachmarks / onboarding) |
+| **You install via** | `git clone` → `.cursor/skills/` or `.claude/skills/` | `implementation("com.aldefy:lumen:…")` in Gradle |
+| **Primary consumer** | Cursor, Claude Code, Codex, Copilot, etc. | Your app's users (spotlight tutorials) |
+| **Output** | Better Kotlin/Compose code from the AI | Glowing cutouts, tooltips, walkthrough overlays |
+| **Contains Compose UI?** | Teaches how to write it (patterns in markdown) | Ships ready-made Composables |
+| **Platform** | Android-focused patterns (+ KMP references) | Android, iOS, Desktop, Web (CMP) |
+
+**Use this repo** when you want AI to stop hallucinating `GlobalScope`, `collectAsState()`, and naked `_state.value =`.
+
+**Use Lumen** when you need onboarding spotlights in your Compose Multiplatform app.
+
+They solve **different problems**. Not competitors.
+
 ---
 
 ## Why use this over other Compose skills?
@@ -122,6 +155,10 @@ Paste [`agents/_shared-snippet.md`](agents/_shared-snippet.md) into your project
 ### Does this work with GitHub Copilot?
 
 Yes — see [`agents/copilot.md`](agents/copilot.md). Install under `.github/skills/compose-kotlin-agent-skills`.
+
+### Is this the same as aldefy/Lumen or an Alexa skill?
+
+**No.** [Lumen](https://github.com/aldefy/Lumen) is a **Compose UI library** for onboarding coachmarks you add via Gradle. This repo is **markdown instructions for coding AIs** (Cursor, Claude Code, etc.) — clone with `git`, not `implementation()`. The word "agent-skill" means [agentskills.io](https://agentskills.io) format, not voice assistants.
 
 ### MVVM vs MVI — which does this skill enforce?
 
