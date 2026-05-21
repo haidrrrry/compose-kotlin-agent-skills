@@ -1,0 +1,16 @@
+# GitHub Linguist overrides — repo is documentation, not a Python project.
+# Hide validator script + workflows from language stats so Linguist surfaces
+# Markdown (the actual content) and Kotlin (the snippet language taught).
+
+*.md          linguist-detectable=true
+*.md          linguist-documentation=false
+
+scripts/**    linguist-vendored
+*.py          linguist-vendored
+*.sh          linguist-vendored
+*.yml         linguist-vendored
+*.yaml        linguist-vendored
+.github/**    linguist-vendored
+
+# Treat Kotlin snippets inside markdown as the taught language.
+*.kt          linguist-detectable=true

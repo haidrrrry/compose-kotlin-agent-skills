@@ -5,6 +5,8 @@ Enterprise Android/Kotlin agent skill kit. Plain-text index for agentic IDEs (Cu
 **Repository:** https://github.com/haidrrrry/compose-kotlin-agent-skills  
 **Primary skill:** [`SKILL.md`](SKILL.md) — read this first for every Kotlin/Android task.
 
+**Platforms:** Android · Kotlin Multiplatform · Compose Multiplatform (target) · macOS / Linux / Windows (host) · 27 agents.
+
 ## Build & Validation
 
 ```bash

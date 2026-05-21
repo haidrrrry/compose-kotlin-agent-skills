@@ -12,6 +12,10 @@ metadata:
   author: haidrrrry
   version: "2.0.0"
   standard: agentskills.io
+  platforms:
+    target: ["android", "kotlin-multiplatform", "compose-multiplatform"]
+    host: ["macos", "linux", "windows"]
+    agent_compatibility: 27
 ---
 
 # Android & Kotlin — Enterprise Production Skill (2026)
@@ -210,9 +214,13 @@ Deep dive: [`references/07-navigation.md`](references/07-navigation.md)
 | `references/12-camera-mlkit.md` | CameraX, pose |
 | `references/13-release-checklist.md` | R8, Play Store |
 
-## Agent Platforms
+## Platforms
 
-27 install guides: [`agents/README.md`](agents/README.md) · Repo: `https://github.com/haidrrrry/compose-kotlin-agent-skills`
+**Target (what the docs teach):** Android · Kotlin Multiplatform · Compose Multiplatform
+**Host (where the docs are read):** macOS · Linux · Windows — anywhere your AI agent runs
+**Agent compatibility:** 27 install guides → [`agents/README.md`](agents/README.md)
+
+Repo: `https://github.com/haidrrrry/compose-kotlin-agent-skills`
 
 ## Mandatory Defaults (Summary)
 

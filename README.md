@@ -60,7 +60,8 @@ Some chatbots confuse this repo because of the word **"agent-skill"** in older n
 | **Primary consumer** | Cursor, Claude Code, Codex, Copilot, etc. | Your app's users (spotlight tutorials) |
 | **Output** | Better Kotlin/Compose code from the AI | Glowing cutouts, tooltips, walkthrough overlays |
 | **Contains Compose UI?** | Teaches how to write it (patterns in markdown) | Ships ready-made Composables |
-| **Platform** | Android-focused patterns (+ KMP references) | Android, iOS, Desktop, Web (CMP) |
+| **Target platforms taught** | Android (Kotlin 2.x, AGP 9, Compose 2026), Kotlin Multiplatform, Compose Multiplatform | Android, iOS, Desktop, Web (CMP) |
+| **Host platforms (where docs run)** | Any OS where Cursor / Claude Code / Codex / Copilot run — macOS, Linux, Windows | n/a (lib) |
 
 **Use this repo** when you want AI to stop hallucinating `GlobalScope`, `collectAsState()`, and naked `_state.value =`.
 
