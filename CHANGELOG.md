@@ -6,7 +6,8 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the 
 ## [Unreleased]
 
 ### Added
-- README / AGENTS.md / SKILL.md — **"What this is NOT"** section (vs Alexa/Bixby, LLM SDK, Gradle lib) and correct comparison to [aldefy/Lumen](https://github.com/aldefy/Lumen).
+- README / AGENTS.md / SKILL.md — **"What this is NOT"** section (vs voice assistants, on-device LLM SDKs, Gradle UI libs).
+- README fully rewritten in clean centered style: hero, problem statement, "What changes" comparison table, topic coverage, file structure, per-agent setup, quick example.
 
 ### Planned
 - Live verification prompt (skill self-test against a sample diff).

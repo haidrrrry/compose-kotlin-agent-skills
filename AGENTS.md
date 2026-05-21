@@ -89,7 +89,7 @@ Replace `<agent-dir>` per agent (`.cursor`, `.claude`, `.codex`, `.windsurf`, et
 
 Install: `git clone` into `.cursor/skills/compose-kotlin-agent-skills` or `.claude/skills/compose-kotlin-agent-skills`.
 
-**Not the same as** UI libraries like [aldefy/Lumen](https://github.com/aldefy/Lumen) (coachmark/onboarding Composables). Lumen = ship UI in your app. This repo = teach your **coding agent** how to write Kotlin/Compose correctly.
+**Not the same as** Compose UI libraries (coachmark / onboarding / theming Composables you add via Gradle). Those ship UI in your app. This repo teaches your **coding agent** how to write Kotlin/Compose correctly.
 
 ## Boundaries — Do Not
 

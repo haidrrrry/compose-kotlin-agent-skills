@@ -1,173 +1,263 @@
-<div align="center">
+<p align="center">
+  <img src="assets/logo.png" width="160" alt="compose-kotlin-agent-skills"/>
+</p>
 
-<img src="assets/logo.png" alt="Jetpack Compose and Kotlin AI agent skills for Cursor Claude Code and Codex" width="220" />
+<h1 align="center">compose-kotlin-agent-skills</h1>
 
-# compose-kotlin-agent-skills
+<p align="center">
+  Make your AI coding agent actually understand <b>Jetpack Compose &amp; Kotlin</b> — on Android, Kotlin Multiplatform, and Compose Multiplatform.<br/>
+  Strict MVI · Kotlin 2.x K2 · Compose 2026 · CI-validated · 27 agents supported.
+</p>
 
-**Jetpack Compose & Kotlin AI agent skills — Cursor, Claude Code, Codex, Gemini & 27+ agents.**
-
-Production Android patterns · strict MVI · Kotlin 2.x K2 · Compose 2026 · CI-validated · not docs copy-paste.
-
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Skill Lint](https://github.com/haidrrrry/compose-kotlin-agent-skills/actions/workflows/skill-lint.yml/badge.svg)](https://github.com/haidrrrry/compose-kotlin-agent-skills/actions/workflows/skill-lint.yml)
-[![Agents Supported](https://img.shields.io/badge/agents-27%2B-3DDC84?logo=android&logoColor=white)](agents/README.md)
-[![Kotlin](https://img.shields.io/badge/Kotlin-2.x%20K2-7F52FF?logo=kotlin&logoColor=white)](SKILL.md)
-[![Jetpack Compose](https://img.shields.io/badge/Jetpack%20Compose-2026-4285F4?logo=jetpackcompose&logoColor=white)](skills/android-kotlin-compose/SKILL.md)
-[![AGENTS.md](https://img.shields.io/badge/AGENTS.md-spec-818CF8)](AGENTS.md)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](.github/pull_request_template.md)
-
-[**Install**](#install) ·
-[**Skill catalog**](AGENTS.md#skill-catalog) ·
-[**Agents**](agents/README.md) ·
-[**FAQ**](#faq) ·
-[**Roadmap**](ROADMAP.md)
-
-</div>
-
-> **One-line install (Cursor):**
-> `git clone https://github.com/haidrrrry/compose-kotlin-agent-skills.git .cursor/skills/compose-kotlin-agent-skills`
+<p align="center">
+  <a href="#setup"><img src="https://img.shields.io/badge/setup-2%20min-brightgreen" alt="Setup time"/></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue" alt="License"/></a>
+  <a href="https://github.com/haidrrrry/compose-kotlin-agent-skills/actions/workflows/skill-lint.yml"><img src="https://github.com/haidrrrry/compose-kotlin-agent-skills/actions/workflows/skill-lint.yml/badge.svg" alt="Skill Lint"/></a>
+  <a href="agents/README.md"><img src="https://img.shields.io/badge/agents-27%2B-3DDC84?logo=android&logoColor=white" alt="Agents supported"/></a>
+  <a href="SKILL.md"><img src="https://img.shields.io/badge/Kotlin-2.x%20K2-7F52FF?logo=kotlin&logoColor=white" alt="Kotlin"/></a>
+  <a href="skills/android-kotlin-compose/SKILL.md"><img src="https://img.shields.io/badge/Jetpack%20Compose-2026-4285F4?logo=jetpackcompose&logoColor=white" alt="Compose"/></a>
+  <a href="AGENTS.md"><img src="https://img.shields.io/badge/AGENTS.md-spec-818CF8" alt="AGENTS.md"/></a>
+</p>
 
 ---
 
-## What is this?
+## The problem
 
-**compose-kotlin-agent-skills** is an open-source **Android AI rules / agent skill** pack for coding assistants. It teaches agents how to write real **Kotlin**, **Jetpack Compose**, **MVVM/MVI**, **Hilt**, **Room**, **Navigation 3**, and **coroutines** code — with WRONG/RIGHT pairs, banned antipatterns, and pinned 2026 dependency versions.
+AI coding agents generate Kotlin/Compose code that compiles but gets the details wrong:
 
-Works with: **Cursor rules**, **Claude Code skills**, **OpenAI Codex AGENTS.md**, **Gemini CLI**, **GitHub Copilot**, **Windsurf**, **Cline**, **Aider**, **Continue**, and [20+ more](agents/README.md).
+- `_state.value = …` instead of atomic `_state.update { }` — race conditions
+- `collectAsState()` instead of `collectAsStateWithLifecycle()` — battery drain
+- Hardcoded UI strings instead of `stringResource(R.string.…)` — broken localisation
+- `LazyColumn` without `key` + `contentType` — broken scroll, recomposition storms
+- `GlobalScope.launch { }` inside ViewModels — leaks
+- `mutableStateListOf` in ViewModel — survives config change wrong
 
-Think of it as a **senior Android engineer's playbook in markdown** — cloned into `.cursor/skills/` or `.claude/skills/` so your coding agent reads it **before** writing Kotlin.
+This skill kit fixes that by giving your AI agent:
+
+1. **A primary `SKILL.md`** with the 2026 toolchain, strict MVI guardrails, and an explicit **banned-antipatterns** table.
+2. **3 modular sub-skills** (architecture, Compose, testing) loaded on demand.
+3. **13 reference modules** covering every major Android/Kotlin topic.
+4. **27 per-agent install guides** so Cursor, Claude Code, Codex, Copilot, Gemini, etc. each load it correctly.
+5. **CI-validated** — every `SKILL.md` is frontmatter-linted, link-checked, and registered in `api/skills.lock` on every push.
 
 ---
 
-## What this is NOT (AIs often get this wrong)
-
-Some chatbots confuse this repo because of the word **"agent-skill"** in older names. **Read this before comparing to other repos.**
+## What this is NOT
 
 | Wrong guess | Reality |
 |---|---|
-| Alexa / Bixby / voice assistant "skill" | **No.** Not a voice platform integration. |
-| On-device LLM runtime or tool-calling SDK | **No.** No model inference, no agent framework code. |
-| Android library you add to `build.gradle` | **No.** Not an AAR/Maven artifact. Nothing to `implementation(...)`. |
-| Backend service or API | **No.** Zero servers. Markdown + validation scripts only. |
-| UI component library (coachmarks, spotlights) | **No.** Not like [Lumen](https://github.com/aldefy/Lumen). We don't ship Composables. |
+| Android library / Gradle dependency | **No** — nothing to `implementation(...)`. Pure markdown. |
+| Alexa / Bixby / voice-assistant "skill" | **No** — not a voice platform. The word "skill" here = [agentskills.io](https://agentskills.io) format. |
+| On-device LLM runtime / tool-calling SDK | **No** — no model inference, no agent framework. |
+| Compose UI library (coachmarks, theming, charts) | **No** — we don't ship Composables; we teach how to write them. |
+| Backend or REST API | **No** — markdown files plus a Python validator. |
 
-### Correct comparison: us vs [aldefy/Lumen](https://github.com/aldefy/Lumen)
+**TL;DR:** clone this repo into your agent's skills folder. The agent reads it before writing Kotlin. That's it.
 
-| | **compose-kotlin-agent-skills** (this repo) | **aldefy/Lumen** |
+---
+
+## What changes when you install it
+
+| Area | Without the skill | With the skill |
 |---|---|---|
-| **Category** | **Documentation** — AI coding agent instructions | **Library** — Compose Multiplatform UI (coachmarks / onboarding) |
-| **You install via** | `git clone` → `.cursor/skills/` or `.claude/skills/` | `implementation("com.aldefy:lumen:…")` in Gradle |
-| **Primary consumer** | Cursor, Claude Code, Codex, Copilot, etc. | Your app's users (spotlight tutorials) |
-| **Output** | Better Kotlin/Compose code from the AI | Glowing cutouts, tooltips, walkthrough overlays |
-| **Contains Compose UI?** | Teaches how to write it (patterns in markdown) | Ships ready-made Composables |
-| **Target platforms taught** | Android (Kotlin 2.x, AGP 9, Compose 2026), Kotlin Multiplatform, Compose Multiplatform | Android, iOS, Desktop, Web (CMP) |
-| **Host platforms (where docs run)** | Any OS where Cursor / Claude Code / Codex / Copilot run — macOS, Linux, Windows | n/a (lib) |
-
-**Use this repo** when you want AI to stop hallucinating `GlobalScope`, `collectAsState()`, and naked `_state.value =`.
-
-**Use Lumen** when you need onboarding spotlights in your Compose Multiplatform app.
-
-They solve **different problems**. Not competitors.
+| ViewModel state | `_state.value = ...` (race conditions) | Atomic `_state.update { it.copy(...) }` |
+| Flow collection | `collectAsState()` (drains battery in background) | `collectAsStateWithLifecycle()` |
+| UI text | Hardcoded `"Login"` literals | `stringResource(R.string.login)` |
+| Lists | `LazyColumn` with no key | Stable `key` + `contentType` per item |
+| Architecture | Mixed MVVM / state in Composable | Strict MVI — `UiState` + `UiEvent` + `UiEffect` |
+| DI | `companion object Singleton` | `@HiltViewModel` + constructor injection |
+| Navigation | String routes (deprecated) | Navigation 3 type-safe `NavKey` routes |
+| Coroutines | `GlobalScope.launch { }` | `viewModelScope` + structured concurrency |
+| Compose perf | Unstable params → constant recomposition | `@Stable` / `@Immutable` + deferred reads |
+| Edge-to-edge | Status bar overlaps content | `enableEdgeToEdge()` + correct insets |
+| Versions | Made up / outdated | Pinned to 2026 stable releases |
 
 ---
 
-## Why use this over other Compose skills?
+## Platforms
 
-| Other skills | compose-kotlin-agent-skills |
+| | Supported |
 |---|---|
-| Docs copy-paste | Production patterns from shipped apps |
-| Toy ViewModels | Strict MVI — `_state.update { }` only |
-| No antipatterns list | Bans `GlobalScope`, `collectAsState()`, hardcoded strings |
-| No CI | Every `SKILL.md` linted on every PR |
-| Single agent | 27 agent install guides |
-
-Backed by [AnimatedClockJetpacl](https://github.com/haidrrrry/AnimatedClockJetpacl) · [Authenticator](https://github.com/haidrrrry/Authenticator) · [RepLock](https://github.com/haidrrrry/RepLockPushupAppBlocker).
+| **Target (what the docs teach)** | Android · Kotlin Multiplatform · Compose Multiplatform |
+| **Host (where the docs are read)** | macOS · Linux · Windows — anywhere your AI agent runs |
+| **Agent compatibility** | 27 install guides (see [`agents/README.md`](agents/README.md)) |
+| **Languages taught** | Kotlin 2.x (K2 compiler) |
+| **Tooling enforced** | AGP 9, Compose BOM 2026, Navigation 3 |
 
 ---
 
-## Install {#install}
+## Skill catalog
 
-### Cursor (most popular)
+| Skill | When the agent loads it |
+|---|---|
+| [`SKILL.md`](SKILL.md) (root) | Any Android / Kotlin / Compose work — toolchain, MVI guardrails, banned antipatterns |
+| [`skills/android-kotlin-architecture/SKILL.md`](skills/android-kotlin-architecture/SKILL.md) | Clean Architecture, MVVM/MVI, modules, UseCases, `UiState` / `UiEvent` / `UiEffect` |
+| [`skills/android-kotlin-compose/SKILL.md`](skills/android-kotlin-compose/SKILL.md) | Jetpack Compose UI, recomposition, Material 3, edge-to-edge, animations |
+| [`skills/android-kotlin-testing/SKILL.md`](skills/android-kotlin-testing/SKILL.md) | ViewModel tests, Compose UI tests, Hilt fakes, Turbine |
+
+Full routing index → [`AGENTS.md`](AGENTS.md)
+
+---
+
+## What's covered
+
+| Topic | Reference | What the agent learns |
+|---|---|---|
+| Architecture | [`references/01-architecture.md`](references/01-architecture.md) | Clean Arch, MVVM, MVI, module structure |
+| Compose UI | [`references/02-compose-ui.md`](references/02-compose-ui.md) | Composition, stability, Modifier order, theming |
+| Animations | [`references/03-animations.md`](references/03-animations.md) | Springs, Canvas, gestures, shared elements |
+| Coroutines & Flow | [`references/04-coroutines-flow.md`](references/04-coroutines-flow.md) | `StateFlow`, structured concurrency, error handling |
+| Hilt DI | [`references/05-hilt-di.md`](references/05-hilt-di.md) | Scopes, `EntryPoint`, testing |
+| Room | [`references/06-room-db.md`](references/06-room-db.md) | Migrations, offline-first, DAOs |
+| Navigation | [`references/07-navigation.md`](references/07-navigation.md) | Navigation 3, type-safe routes, deep links |
+| KMP / CMP | [`references/08-kmp-cmp.md`](references/08-kmp-cmp.md) | `expect`/`actual`, shared ViewModel, Ktor |
+| Networking | [`references/09-networking.md`](references/09-networking.md) | Ktor, JWT, DTO mappers |
+| Performance | [`references/10-performance.md`](references/10-performance.md) | Recomposition, `LazyColumn`, baseline profiles |
+| Testing | [`references/11-testing.md`](references/11-testing.md) | Turbine, Compose UI tests, Hilt `TestInstallIn` |
+| Camera & ML | [`references/12-camera-mlkit.md`](references/12-camera-mlkit.md) | CameraX, ML Kit pose, angle math |
+| Release | [`references/13-release-checklist.md`](references/13-release-checklist.md) | Signing, R8, Play Store |
+
+---
+
+## How it works
+
+```
+You ask about Kotlin / Compose
+        |
+        v
+  AI reads SKILL.md (routing + guardrails + banned antipatterns)
+        |
+        v
+  Loads the right sub-skill
+        |
+        +-- skills/android-kotlin-architecture/SKILL.md
+        +-- skills/android-kotlin-compose/SKILL.md
+        +-- skills/android-kotlin-testing/SKILL.md
+        |
+        v
+  Pulls topic reference
+        |
+        +-- references/01-architecture.md
+        +-- references/02-compose-ui.md
+        +-- references/04-coroutines-flow.md
+        +-- ... 13 references total
+        |
+        v
+  Writes code that follows the guardrails
+```
+
+**Layer 1: root skill** (`SKILL.md`) — single source of truth for toolchain versions, mandatory defaults, and banned antipatterns.
+
+**Layer 2: sub-skills** (3 files) — focused playbooks loaded only when the task matches the domain.
+
+**Layer 3: references** (13 files) — deep dives with WRONG/RIGHT pairs, decision matrices, pinned versions.
+
+**Layer 4: validator** (`scripts/validate_skills.py`) — CI enforces frontmatter, link integrity, and skill-registry parity.
+
+---
+
+## File structure
+
+```
+compose-kotlin-agent-skills/
+├── SKILL.md                              # Routing hub + MVI guardrails + banned antipatterns
+├── AGENTS.md                             # agentskills.io meta-discovery index
+├── CHANGELOG.md                          # Keep a Changelog · semver
+├── ROADMAP.md                            # Planned milestones
+├── api/
+│   └── skills.lock                       # CI-tracked registry of every SKILL.md (md5)
+├── skills/
+│   ├── android-kotlin-architecture/SKILL.md
+│   ├── android-kotlin-compose/SKILL.md
+│   └── android-kotlin-testing/SKILL.md
+├── references/                           # 13 topic deep-dives
+├── agents/                               # 27 per-agent install guides + index
+├── examples/                             # Real code from shipped apps
+├── assets/
+│   └── logo.png
+├── scripts/
+│   ├── validate_skills.py                # Frontmatter + link + lock validator (JUnit XML capable)
+│   └── update_lock.sh                    # Regenerate api/skills.lock after editing any SKILL.md
+└── .github/
+    ├── workflows/skill-lint.yml          # CI: validator + JUnit report
+    ├── pull_request_template.md
+    └── ISSUE_TEMPLATE/                   # bug, feature, new-agent
+```
+
+---
+
+## Setup {#setup}
+
+The skill is just markdown. Every agent below reads the same content — pick yours.
+
+### Cursor
 
 ```bash
 git clone https://github.com/haidrrrry/compose-kotlin-agent-skills.git \
   .cursor/skills/compose-kotlin-agent-skills
 ```
 
-See [`agents/cursor.md`](agents/cursor.md) for `.cursor/rules` setup.
+Cursor auto-discovers `.cursor/skills/*/SKILL.md`. For a rules-file alternative see [`agents/cursor.md`](agents/cursor.md).
 
 ### Claude Code
 
 ```bash
+# Personal — available in all your projects
 git clone https://github.com/haidrrrry/compose-kotlin-agent-skills.git \
   ~/.claude/skills/compose-kotlin-agent-skills
+
+# Project-specific
+git clone https://github.com/haidrrrry/compose-kotlin-agent-skills.git \
+  .claude/skills/compose-kotlin-agent-skills
 ```
 
-### Codex CLI · Gemini CLI · Copilot · Windsurf · Kimi · DeepSeek
+Add a 5-line block to your project's `CLAUDE.md` — see [`agents/claude.md`](agents/claude.md).
+
+### Codex CLI (OpenAI)
 
 ```bash
 git clone https://github.com/haidrrrry/compose-kotlin-agent-skills.git
 ```
 
-Then follow your agent guide in [`agents/`](agents/README.md) — each file has the exact path (`AGENTS.md`, `GEMINI.md`, `.github/skills/`, etc.).
+Then add a reference block to your project's root `AGENTS.md` — see [`agents/codex.md`](agents/codex.md).
 
----
-
-## Skill catalog
-
-| Skill | Load when |
-|---|---|
-| [`SKILL.md`](SKILL.md) | Any Android / Kotlin / Compose task |
-| [`android-kotlin-architecture`](skills/android-kotlin-architecture/SKILL.md) | Clean Architecture, MVVM, MVI, UiState/Event/Effect |
-| [`android-kotlin-compose`](skills/android-kotlin-compose/SKILL.md) | Jetpack Compose UI, recomposition, Material 3, edge-to-edge |
-| [`android-kotlin-testing`](skills/android-kotlin-testing/SKILL.md) | ViewModel tests, Compose UI tests, Hilt fakes, Turbine |
-
-Full routing index → [`AGENTS.md`](AGENTS.md)
-
----
-
-## What's inside
-
-- **13 reference modules** — architecture, Compose UI, animations, coroutines, Hilt, Room, Navigation 3, KMP, networking, performance, testing, CameraX/ML Kit, Play Store release
-- **Banned antipatterns** — `GlobalScope`, naked `_state.value =`, `collectAsState()`, `mutableStateListOf` in ViewModel
-- **2026 toolchain** — Kotlin 2.x K2, AGP 9, Compose BOM 2026, Navigation 3
-- **CI validator** — `python3 scripts/validate_skills.py --strict --lock-check api/skills.lock`
-
----
-
-## FAQ {#faq}
-
-### Best Android agent skill for Cursor?
-
-Clone this repo into `.cursor/skills/compose-kotlin-agent-skills` and point Cursor rules at `SKILL.md`. Covers Compose, MVI, Hilt, Room, and banned AI hallucinations.
-
-### How do I add Kotlin rules to Claude Code?
+### Gemini CLI
 
 ```bash
-git clone https://github.com/haidrrrry/compose-kotlin-agent-skills.git ~/.claude/skills/compose-kotlin-agent-skills
+git clone https://github.com/haidrrrry/compose-kotlin-agent-skills.git
 ```
 
-Claude auto-discovers `SKILL.md` in the skills folder.
+Then add a reference block to `GEMINI.md` — see [`agents/gemini.md`](agents/gemini.md).
 
-### Jetpack Compose cursor rules / AGENTS.md?
+### GitHub Copilot
 
-Paste [`agents/_shared-snippet.md`](agents/_shared-snippet.md) into your project's `AGENTS.md` or `.cursor/rules`. Forces `collectAsStateWithLifecycle`, `_state.update`, and `stringResource`.
+Clone into `.github/skills/compose-kotlin-agent-skills/` and add a block to `.github/copilot-instructions.md` — see [`agents/copilot.md`](agents/copilot.md).
 
-### Does this work with GitHub Copilot?
+### Other agents (22 more)
 
-Yes — see [`agents/copilot.md`](agents/copilot.md). Install under `.github/skills/compose-kotlin-agent-skills`.
+Windsurf · Kimi · DeepSeek · Cline · Aider · Continue.dev · OpenCode · Zed · Amazon Q · JetBrains AI / Junie · Sourcegraph Cody · Replit Agent · Augment · Roo Code · Goose · OpenHands · Qwen Code · Trae · Tabnine · Factory Droid · Devin · Bolt.new
 
-### Is this the same as aldefy/Lumen or an Alexa skill?
+Full table → [`agents/README.md`](agents/README.md)
+Paste-anywhere snippet → [`agents/_shared-snippet.md`](agents/_shared-snippet.md)
 
-**No.** [Lumen](https://github.com/aldefy/Lumen) is a **Compose UI library** for onboarding coachmarks you add via Gradle. This repo is **markdown instructions for coding AIs** (Cursor, Claude Code, etc.) — clone with `git`, not `implementation()`. The word "agent-skill" means [agentskills.io](https://agentskills.io) format, not voice assistants.
+---
 
-### MVVM vs MVI — which does this skill enforce?
+## Quick example
 
-**MVI** with atomic `StateFlow` updates. `UiState` + `UiEvent` + `UiEffect`. Naked state assignment is explicitly banned.
+After setup, talk to your AI agent normally:
 
-### Kotlin Multiplatform / Compose Multiplatform?
+```
+"My LazyColumn jank — fix it."
+```
 
-See [`references/08-kmp-cmp.md`](references/08-kmp-cmp.md) — shared ViewModel, expect/actual, Ktor networking.
+What happens:
+
+1. Agent reads `SKILL.md` for the routing rules.
+2. Loads `skills/android-kotlin-compose/SKILL.md` and `references/10-performance.md`.
+3. Checks your code for missing `key` / `contentType`, unstable items, heavy work in item blocks.
+4. Returns a fix that follows the guardrails — `key = { it.id }`, `@Immutable` data class, `derivedStateOf` where appropriate.
+
+No hallucinated APIs. No `GlobalScope`. No `_state.value = …`.
 
 ---
 
@@ -177,14 +267,57 @@ See [`references/08-kmp-cmp.md`](references/08-kmp-cmp.md) — shared ViewModel,
 python3 scripts/validate_skills.py --strict --lock-check api/skills.lock
 ```
 
+CI runs the same command on every push and pull request. If you edit any `SKILL.md`:
+
+```bash
+./scripts/update_lock.sh
+```
+
+Then commit `api/skills.lock` alongside your change.
+
+---
+
+## FAQ
+
+### Best Kotlin / Compose skill for Cursor?
+
+Clone this repo into `.cursor/skills/compose-kotlin-agent-skills` and point Cursor rules at `SKILL.md`. Covers Compose, MVI, Hilt, Room, Navigation 3, and the banned-antipatterns table.
+
+### How do I add Kotlin rules to Claude Code?
+
+```bash
+git clone https://github.com/haidrrrry/compose-kotlin-agent-skills.git ~/.claude/skills/compose-kotlin-agent-skills
+```
+
+Claude auto-discovers `SKILL.md` in the skills folder.
+
+### MVVM vs MVI — which does this enforce?
+
+**MVI** with atomic `StateFlow` updates. `UiState` + `UiEvent` + `UiEffect`. Naked state assignment (`_state.value = ...`) is explicitly banned.
+
+### Kotlin Multiplatform / Compose Multiplatform?
+
+See [`references/08-kmp-cmp.md`](references/08-kmp-cmp.md) — shared ViewModel, `expect`/`actual`, Ktor networking, SQLDelight vs Room.
+
+### Is this a Compose UI library or an Alexa skill?
+
+**No.** It's markdown instructions for coding AIs — clone with `git`, not `implementation(...)`. The word "skill" follows the [agentskills.io](https://agentskills.io) format, unrelated to voice assistants.
+
 ---
 
 ## Contributing
 
-PRs welcome — [`pull_request_template.md`](.github/pull_request_template.md)
+PRs welcome — see [`.github/pull_request_template.md`](.github/pull_request_template.md).
 
-Author: **[haidrrrry](https://github.com/haidrrrry)**
+Every new sub-skill must:
+
+1. Live under `skills/<kebab-case-name>/SKILL.md` with valid frontmatter.
+2. Pass `python3 scripts/validate_skills.py --strict`.
+3. Be registered in [`AGENTS.md`](AGENTS.md#skill-catalog).
+4. Bump [`api/skills.lock`](api/skills.lock) via `./scripts/update_lock.sh`.
 
 ## License
 
-MIT
+MIT — see [LICENSE](LICENSE).
+
+Author: **[haidrrrry](https://github.com/haidrrrry)**
