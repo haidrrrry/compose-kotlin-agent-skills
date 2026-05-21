@@ -1,4 +1,4 @@
-# AGENTS.md — compose-kotlin-agent-skills
+# AGENTS.md — compose-kotlin-agent-skills 
 
 Enterprise Android/Kotlin agent skill kit. Plain-text index for agentic IDEs (Cursor, Claude Code, Codex, Gemini, Copilot, Windsurf, OpenHands, and 20+ others).
 
