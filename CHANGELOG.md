@@ -5,14 +5,27 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the 
 
 ## [Unreleased]
 
-### Added
-- README / AGENTS.md / SKILL.md — **"What this is NOT"** section (vs voice assistants, on-device LLM SDKs, Gradle UI libs).
-- README fully rewritten in clean centered style: hero, problem statement, "What changes" comparison table, topic coverage, file structure, per-agent setup, quick example.
-
 ### Planned
 - Live verification prompt (skill self-test against a sample diff).
 - KMP/CMP sub-skill split out of `references/08-kmp-cmp.md`.
 - Per-agent install snippets translated to Japanese / Korean / Mandarin.
+- Reference snippet compiler — compile all `examples/` and reference code blocks in CI.
+
+## [2.2.0] — 2026-05-21
+
+### Added
+- **7 new reference modules** — `00-banned-antipatterns`, `14-datastore`, `15-paging3`, `16-coil-image`, `17-accessibility`, `18-gradle-build-logic`, `19-xml-to-compose-migration` (YAML frontmatter, 3+ WRONG/RIGHT pairs each, 2026 pinned versions).
+- **`examples/todo-mvi/`** — MVI todo reference (`TodoViewModel`, `TodoScreen`, `TodoRepository`) with antipattern callouts.
+- **REVIEW MODE** in `skills/android-kotlin-compose/SKILL.md` — 6-point silent audit checklist for composable/screen reviews.
+- README — Quick install table, Review mode section, star history badge, 20-reference coverage table.
+- AGENTS.md — all new references catalogued; `todo-mvi` example linked.
+
+### Changed
+- Root `SKILL.md` — banned table extracted to `references/00-banned-antipatterns.md`; routing table extended to 00–19; version `2.2.0`.
+- `skills/android-kotlin-compose/SKILL.md` — split into REVIEW MODE + AUTHORING MODE; trigger phrases in description.
+
+### Removed
+- Inline banned-antipatterns table from root `SKILL.md` (moved to dedicated reference file).
 
 ## [2.1.0] — 2026-05-21
 
@@ -56,7 +69,8 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the 
 - `examples/animated-clock/` and `examples/authenticator/` snippets.
 - MIT license.
 
-[Unreleased]: https://github.com/haidrrrry/compose-kotlin-agent-skills/compare/v2.1.0...HEAD
+[Unreleased]: https://github.com/haidrrrry/compose-kotlin-agent-skills/compare/v2.2.0...HEAD
+[2.2.0]: https://github.com/haidrrrry/compose-kotlin-agent-skills/compare/v2.1.0...v2.2.0
 [2.1.0]: https://github.com/haidrrrry/compose-kotlin-agent-skills/compare/v2.0.0...v2.1.0
 [2.0.0]: https://github.com/haidrrrry/compose-kotlin-agent-skills/compare/v1.0.0...v2.0.0
 [1.0.0]: https://github.com/haidrrrry/compose-kotlin-agent-skills/releases/tag/v1.0.0

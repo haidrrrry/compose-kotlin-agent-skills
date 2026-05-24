@@ -9,8 +9,9 @@ Legend: `[ ]` planned · `[~]` in progress · `[x]` shipped
 - [~] Split `references/08-kmp-cmp.md` into its own `skills/android-kotlin-kmp/` sub-skill with Ktor + SQLDelight matrix.
 - [ ] `skills/android-kotlin-camera-mlkit/` — pose detection, 1€ filter, real angle math, extracted from `references/12`.
 - [ ] `skills/android-kotlin-release/` — R8 rules, baseline profiles, Play Store checklist, extracted from `references/13`.
-- [ ] WRONG/RIGHT diff harness — every banned antipattern paired with a working fix snippet, lint-checked.
-- [ ] Reference snippet compiler — auto-extract code blocks from `references/*.md` into a Gradle project that compiles in CI.
+- [~] WRONG/RIGHT diff harness — every banned antipattern paired with a working fix snippet, lint-checked (`00-banned-antipatterns.md` shipped).
+- [ ] Reference snippet compiler — auto-extract code blocks from `references/*.md` + `examples/todo-mvi/` into a Gradle project that compiles in CI.
+- [ ] GitHub Releases workflow — semver tags + tarball downloads per CHANGELOG version.
 
 ## Q4 2026 — Verification
 
@@ -42,6 +43,10 @@ Legend: `[ ]` planned · `[~]` in progress · `[x]` shipped
 - [x] Sub-skills split: architecture, compose, testing.
 - [x] Repo brand: logo, badges, README rewrite, CHANGELOG, ROADMAP, PR + issue templates.
 - [x] `api/skills.lock` registry + `--lock-check`.
+- [x] References 00 + 14–19 (DataStore, Paging3, Coil, a11y, Gradle, XML migration).
+- [x] Banned antipatterns extracted to `references/00-banned-antipatterns.md`.
+- [x] Compose REVIEW MODE (6-point audit checklist).
+- [x] `examples/todo-mvi/` MVI reference implementation.
 
 ## How to propose changes
 

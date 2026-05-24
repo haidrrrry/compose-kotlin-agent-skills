@@ -17,9 +17,22 @@
   <a href="SKILL.md"><img src="https://img.shields.io/badge/Kotlin-2.x%20K2-7F52FF?logo=kotlin&logoColor=white" alt="Kotlin"/></a>
   <a href="skills/android-kotlin-compose/SKILL.md"><img src="https://img.shields.io/badge/Jetpack%20Compose-2026-4285F4?logo=jetpackcompose&logoColor=white" alt="Compose"/></a>
   <a href="AGENTS.md"><img src="https://img.shields.io/badge/AGENTS.md-spec-818CF8" alt="AGENTS.md"/></a>
+  <a href="https://star-history.com/#haidrrrry/compose-kotlin-agent-skills"><img src="https://api.star-history.com/svg?repos=haidrrrry/compose-kotlin-agent-skills&type=Date" alt="Star History Chart"/></a>
 </p>
 
 ---
+
+## Quick install
+
+| Agent | Command |
+|---|---|
+| **Cursor** | `git clone https://github.com/haidrrrry/compose-kotlin-agent-skills.git .cursor/skills/compose-kotlin-agent-skills` |
+| **Claude Code** | `git clone https://github.com/haidrrrry/compose-kotlin-agent-skills.git ~/.claude/skills/compose-kotlin-agent-skills` |
+| **Codex CLI** | `git clone https://github.com/haidrrrry/compose-kotlin-agent-skills.git` → add block to root `AGENTS.md` ([guide](agents/codex.md)) |
+| **Gemini CLI** | `git clone https://github.com/haidrrrry/compose-kotlin-agent-skills.git` → add block to `GEMINI.md` ([guide](agents/gemini.md)) |
+| **GitHub Copilot** | `git clone https://github.com/haidrrrry/compose-kotlin-agent-skills.git .github/skills/compose-kotlin-agent-skills` ([guide](agents/copilot.md)) |
+
+Per-agent details → [Setup](#setup) · All 27 agents → [`agents/README.md`](agents/README.md)
 
 ## The problem
 
@@ -34,9 +47,9 @@ AI coding agents generate Kotlin/Compose code that compiles but gets the details
 
 This skill kit fixes that by giving your AI agent:
 
-1. **A primary `SKILL.md`** with the 2026 toolchain, strict MVI guardrails, and an explicit **banned-antipatterns** table.
-2. **3 modular sub-skills** (architecture, Compose, testing) loaded on demand.
-3. **13 reference modules** covering every major Android/Kotlin topic.
+1. **A primary `SKILL.md`** with the 2026 toolchain, strict MVI guardrails, and a dedicated **[banned-antipatterns reference](references/00-banned-antipatterns.md)**.
+2. **3 modular sub-skills** (architecture, Compose, testing) loaded on demand — Compose sub-skill includes **REVIEW MODE** for screen audits.
+3. **20 reference modules** (00–19) covering every major Android/Kotlin topic.
 4. **27 per-agent install guides** so Cursor, Claude Code, Codex, Copilot, Gemini, etc. each load it correctly.
 5. **CI-validated** — every `SKILL.md` is frontmatter-linted, link-checked, and registered in `api/skills.lock` on every push.
 
@@ -92,7 +105,7 @@ This skill kit fixes that by giving your AI agent:
 |---|---|
 | [`SKILL.md`](SKILL.md) (root) | Any Android / Kotlin / Compose work — toolchain, MVI guardrails, banned antipatterns |
 | [`skills/android-kotlin-architecture/SKILL.md`](skills/android-kotlin-architecture/SKILL.md) | Clean Architecture, MVVM/MVI, modules, UseCases, `UiState` / `UiEvent` / `UiEffect` |
-| [`skills/android-kotlin-compose/SKILL.md`](skills/android-kotlin-compose/SKILL.md) | Jetpack Compose UI, recomposition, Material 3, edge-to-edge, animations |
+| [`skills/android-kotlin-compose/SKILL.md`](skills/android-kotlin-compose/SKILL.md) | Jetpack Compose UI, recomposition, Material 3, edge-to-edge, **REVIEW MODE audits** |
 | [`skills/android-kotlin-testing/SKILL.md`](skills/android-kotlin-testing/SKILL.md) | ViewModel tests, Compose UI tests, Hilt fakes, Turbine |
 
 Full routing index → [`AGENTS.md`](AGENTS.md)
@@ -103,6 +116,7 @@ Full routing index → [`AGENTS.md`](AGENTS.md)
 
 | Topic | Reference | What the agent learns |
 |---|---|---|
+| **Banned antipatterns** | [`references/00-banned-antipatterns.md`](references/00-banned-antipatterns.md) | Master WRONG/RIGHT lookup — load first for reviews |
 | Architecture | [`references/01-architecture.md`](references/01-architecture.md) | Clean Arch, MVVM, MVI, module structure |
 | Compose UI | [`references/02-compose-ui.md`](references/02-compose-ui.md) | Composition, stability, Modifier order, theming |
 | Animations | [`references/03-animations.md`](references/03-animations.md) | Springs, Canvas, gestures, shared elements |
@@ -116,8 +130,31 @@ Full routing index → [`AGENTS.md`](AGENTS.md)
 | Testing | [`references/11-testing.md`](references/11-testing.md) | Turbine, Compose UI tests, Hilt `TestInstallIn` |
 | Camera & ML | [`references/12-camera-mlkit.md`](references/12-camera-mlkit.md) | CameraX, ML Kit pose, angle math |
 | Release | [`references/13-release-checklist.md`](references/13-release-checklist.md) | Signing, R8, Play Store |
+| DataStore | [`references/14-datastore.md`](references/14-datastore.md) | Preferences/Proto DataStore, SP migration, encryption |
+| Paging 3 | [`references/15-paging3.md`](references/15-paging3.md) | PagingSource, RemoteMediator, `asState()`, LoadState UI |
+| Coil 3 | [`references/16-coil-image.md`](references/16-coil-image.md) | AsyncImage, Coil 3.4 network dep, cache config |
+| Accessibility | [`references/17-accessibility.md`](references/17-accessibility.md) | TalkBack, semantics, 48dp targets, WCAG AA |
+| Gradle / build | [`references/18-gradle-build-logic.md`](references/18-gradle-build-logic.md) | Convention plugins, KSP, R8, baseline profiles |
+| XML → Compose | [`references/19-xml-to-compose-migration.md`](references/19-xml-to-compose-migration.md) | View migration, RxJava → Flow, interop checklist |
 
 ---
+
+## Review mode
+
+Ask your agent to **audit** a Composable or screen — triggers the 6-point checklist in [`skills/android-kotlin-compose/SKILL.md`](skills/android-kotlin-compose/SKILL.md):
+
+> "Review `TodoScreen.kt` in REVIEW MODE" · "Audit this composable for banned antipatterns"
+
+| # | Check |
+|---|---|
+| 1 | `modifier: Modifier = Modifier` present and last optional param |
+| 2 | State hoisted — no screen state stuck in `@Composable` |
+| 3 | `LazyColumn`/`LazyRow` has `key` + `contentType` |
+| 4 | `collectAsStateWithLifecycle()` — never `collectAsState()` |
+| 5 | No IO/DB/network in composition body |
+| 6 | Data params to children are `@Stable` or `@Immutable` |
+
+Cross-reference hits against [`references/00-banned-antipatterns.md`](references/00-banned-antipatterns.md). Example target: [`examples/todo-mvi/TodoScreen.kt`](examples/todo-mvi/TodoScreen.kt).
 
 ## How it works
 
@@ -137,10 +174,10 @@ You ask about Kotlin / Compose
         v
   Pulls topic reference
         |
+        +-- references/00-banned-antipatterns.md
         +-- references/01-architecture.md
         +-- references/02-compose-ui.md
-        +-- references/04-coroutines-flow.md
-        +-- ... 13 references total
+        +-- ... 20 references total (00–19)
         |
         v
   Writes code that follows the guardrails
@@ -150,7 +187,7 @@ You ask about Kotlin / Compose
 
 **Layer 2: sub-skills** (3 files) — focused playbooks loaded only when the task matches the domain.
 
-**Layer 3: references** (13 files) — deep dives with WRONG/RIGHT pairs, decision matrices, pinned versions.
+**Layer 3: references** (20 files, 00–19) — deep dives with WRONG/RIGHT pairs, decision matrices, pinned versions.
 
 **Layer 4: validator** (`scripts/validate_skills.py`) — CI enforces frontmatter, link integrity, and skill-registry parity.
 
@@ -170,9 +207,12 @@ compose-kotlin-agent-skills/
 │   ├── android-kotlin-architecture/SKILL.md
 │   ├── android-kotlin-compose/SKILL.md
 │   └── android-kotlin-testing/SKILL.md
-├── references/                           # 13 topic deep-dives
+├── references/                           # 20 topic deep-dives (00–19)
 ├── agents/                               # 27 per-agent install guides + index
-├── examples/                             # Real code from shipped apps
+├── examples/
+│   ├── todo-mvi/                         # MVI todo list reference (VM + Screen + Repository)
+│   ├── animated-clock/
+│   └── authenticator/
 ├── assets/
 │   └── logo.png
 ├── scripts/
@@ -249,6 +289,14 @@ After setup, talk to your AI agent normally:
 ```
 "My LazyColumn jank — fix it."
 ```
+
+Or run **REVIEW MODE** against the bundled example:
+
+```
+"Review examples/todo-mvi/TodoScreen.kt in REVIEW MODE"
+```
+
+See [`examples/todo-mvi/README.md`](examples/todo-mvi/README.md) for the MVI patterns it demonstrates.
 
 What happens:
 

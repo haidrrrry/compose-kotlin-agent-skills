@@ -42,6 +42,7 @@ Load from `references/` after reading the matching skill above. One level deep o
 
 | Reference | Topic |
 |-----------|-------|
+| [`references/00-banned-antipatterns.md`](references/00-banned-antipatterns.md) | Master banned table — WRONG/RIGHT lookup |
 | [`references/01-architecture.md`](references/01-architecture.md) | Clean Arch, MVVM, MVI, module structure |
 | [`references/04-coroutines-flow.md`](references/04-coroutines-flow.md) | StateFlow, structured concurrency, errors |
 | [`references/05-hilt-di.md`](references/05-hilt-di.md) | Hilt, scopes, EntryPoint, testing |
@@ -49,6 +50,10 @@ Load from `references/` after reading the matching skill above. One level deep o
 | [`references/07-navigation.md`](references/07-navigation.md) | Navigation 3, type-safe routes, deep links |
 | [`references/08-kmp-cmp.md`](references/08-kmp-cmp.md) | KMP, expect/actual, shared ViewModel |
 | [`references/09-networking.md`](references/09-networking.md) | Ktor, JWT, DTO mappers |
+| [`references/14-datastore.md`](references/14-datastore.md) | DataStore, SharedPreferences migration |
+| [`references/15-paging3.md`](references/15-paging3.md) | Paging 3, RemoteMediator, asState() |
+| [`references/18-gradle-build-logic.md`](references/18-gradle-build-logic.md) | Convention plugins, KSP, R8, baseline profiles |
+| [`references/19-xml-to-compose-migration.md`](references/19-xml-to-compose-migration.md) | XML → Compose, RxJava → Flow |
 
 ### Compose & Performance
 
@@ -57,6 +62,8 @@ Load from `references/` after reading the matching skill above. One level deep o
 | [`references/02-compose-ui.md`](references/02-compose-ui.md) | Composition, stability, Modifier order, theming |
 | [`references/03-animations.md`](references/03-animations.md) | Springs, Canvas, gestures, shared elements |
 | [`references/10-performance.md`](references/10-performance.md) | Recomposition, LazyColumn, baseline profiles |
+| [`references/16-coil-image.md`](references/16-coil-image.md) | Coil 3.4, AsyncImage, cache |
+| [`references/17-accessibility.md`](references/17-accessibility.md) | TalkBack, semantics, WCAG |
 
 ### Quality & Ship
 
@@ -78,8 +85,9 @@ Replace `<agent-dir>` per agent (`.cursor`, `.claude`, `.codex`, `.windsurf`, et
 
 ## Production Code Examples
 
-| Example | Source repo |
+| Example | Source |
 |---------|-------------|
+| [`examples/todo-mvi/`](examples/todo-mvi/) | MVI todo list — ViewModel, Screen, Repository (antipattern-safe reference) |
 | [`examples/animated-clock/`](examples/animated-clock/) | [AnimatedClockJetpacl](https://github.com/haidrrrry/AnimatedClockJetpacl) — Canvas, CMP, particles |
 | [`examples/authenticator/`](examples/authenticator/) | [Authenticator](https://github.com/haidrrrry/Authenticator) — Room, MVVM, Koin, theming |
 

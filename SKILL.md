@@ -10,7 +10,7 @@ description: >
 license: MIT
 metadata:
   author: haidrrrry
-  version: "2.0.0"
+  version: "2.2.0"
   standard: agentskills.io
   platforms:
     target: ["android", "kotlin-multiplatform", "compose-multiplatform"]
@@ -173,33 +173,15 @@ Deep dive: [`references/07-navigation.md`](references/07-navigation.md)
 
 ## Banned Antipatterns — AI Hallucination Lookup
 
-| # | Banned (WRONG) | Correct (RIGHT) | Why it breaks |
-|---|----------------|-----------------|---------------|
-| 1 | `GlobalScope.launch { }` | `viewModelScope.launch { }` | Leaks past lifecycle |
-| 2 | `runBlocking { }` on main | `suspend` + proper scope | ANR |
-| 3 | `Text("Hello")` in UI | `stringResource(R.string.hello)` | No localization |
-| 4 | `collectAsState()` Android | `collectAsStateWithLifecycle()` | Background battery drain |
-| 5 | `_state.value = x` | `_state.update { x }` | Race + non-atomic |
-| 6 | `mutableStateListOf` in VM | `StateFlow<List<T>>` + immutable list | Not snapshot-safe |
-| 7 | `items(list)` no key | `items(list, key = { it.id })` | Lost item state |
-| 8 | Pass `ViewModel` to child | Pass lambdas / state | Broken previews + tight coupling |
-| 9 | `remember { mutableStateOf }` for screen state | ViewModel `StateFlow` | Dies on rotation |
-| 10 | `Dispatchers.IO` around Room | `viewModelScope.launch` only | Double dispatch |
-| 11 | `@Provides` interface bind | `@Binds` interface | Extra allocation |
-| 12 | Nav arg = whole object | Nav arg = `id: String` | Process death crash |
-| 13 | `fallbackToDestructiveMigration()` prod | Explicit `Migration` | Data wipe |
-| 14 | `Modifier.clickable` before `clip` wrong order | padding→clip→bg→clickable | Wrong hit target |
-| 15 | Sort inside `LazyColumn` items | `remember` or VM sort | Recompose every frame |
-| 16 | `derivedStateOf` without `remember` | `remember { derivedStateOf { } }` | Recreated each frame |
-| 17 | Backwards write in `@Composable` | Write in event handlers only | Infinite recompose |
-| 18 | `!!` on nullable state | Smart cast / `when` | NPE |
-| 19 | Ktor `HttpClient()` no engine | `HttpClient(OkHttp)` / `Darwin` | Runtime crash |
-| 20 | Hardcode `compileSdk 34` new app | `compileSdk 35` + edge-to-edge | Play policy |
+Full table with WRONG/RIGHT pairs and row numbers: **[`references/00-banned-antipatterns.md`](references/00-banned-antipatterns.md)**
+
+Load before reviewing any agent-generated Kotlin. Compose audit checklist: [`skills/android-kotlin-compose/SKILL.md`](skills/android-kotlin-compose/SKILL.md) § REVIEW MODE.
 
 ## Reference Routing
 
 | File | Topic |
 |------|-------|
+| `references/00-banned-antipatterns.md` | Master banned table — load first for reviews |
 | `references/01-architecture.md` | Clean Arch, MVVM, modules |
 | `references/02-compose-ui.md` | Composition, M3, theming |
 | `references/03-animations.md` | Motion, Canvas |
@@ -213,6 +195,12 @@ Deep dive: [`references/07-navigation.md`](references/07-navigation.md)
 | `references/11-testing.md` | Turbine, UI tests |
 | `references/12-camera-mlkit.md` | CameraX, pose |
 | `references/13-release-checklist.md` | R8, Play Store |
+| `references/14-datastore.md` | DataStore, SP migration, encryption |
+| `references/15-paging3.md` | Paging 3, RemoteMediator, asState() |
+| `references/16-coil-image.md` | Coil 3.4, AsyncImage, cache |
+| `references/17-accessibility.md` | TalkBack, semantics, WCAG |
+| `references/18-gradle-build-logic.md` | Convention plugins, KSP, R8, baseline profiles |
+| `references/19-xml-to-compose-migration.md` | XML → Compose, RxJava → Flow |
 
 ## Platforms
 
