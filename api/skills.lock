@@ -1,7 +1,7 @@
 # compose-kotlin-agent-skills — skill registry
 # Format: <md5>  <relative path>
 
-db0455de5067bc10d097974a88c3306f  SKILL.md
-18388c176dbc37aec22c4133ad3cc5a9  skills/android-kotlin-architecture/SKILL.md
-e66e60d883a477319d437c828541e5af  skills/android-kotlin-compose/SKILL.md
-9a692cd3095a5700e366cf4212c60345  skills/android-kotlin-testing/SKILL.md
+30b2b45463fd598bcdb2246ebd5d26aa  SKILL.md
+2320de01633c0de14447d07e367ffeb8  skills/android-kotlin-architecture/SKILL.md
+662dd0cfb9ee44934b2a3885ee2fb6ea  skills/android-kotlin-compose/SKILL.md
+669c67a3189557469b2ff345ce2ef13d  skills/android-kotlin-testing/SKILL.md
