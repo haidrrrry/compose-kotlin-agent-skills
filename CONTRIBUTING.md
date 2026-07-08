@@ -44,14 +44,17 @@ cd compose-kotlin-agent-skills
 ### 3. Run the CI checks locally
 
 ```bash
-# Lint frontmatter on all SKILL.md files
-./scripts/lint-frontmatter.sh
+# Validate frontmatter, links, and lock-file parity
+python3 scripts/validate_skills.py --strict --lock-check api/skills.lock
 
-# Regenerate md5 locks (required after any SKILL.md edit)
-./scripts/lock-skills.sh
+# Regenerate md5 locks after any SKILL.md edit
+./scripts/update_lock.sh
 ```
 
-Both scripts must pass with zero errors before you open a PR. CI will rerun them on push — a red check means your PR won't be merged.
+The validation command must pass with zero errors before you open a PR. If you
+edit any `SKILL.md`, run `./scripts/update_lock.sh` and commit the updated lock
+file too. CI will rerun validation on push — a red check means your PR won't be
+merged.
 
 ### 4. Open a pull request
 
@@ -68,8 +71,8 @@ Use the template below as your PR description:
 <!-- Link, screenshot, or code snippet that proves the rule is correct -->
 
 ## Checklist
-- [ ] `lint-frontmatter.sh` passes locally
-- [ ] `lock-skills.sh` run and md5 hashes updated
+- [ ] `python3 scripts/validate_skills.py --strict --lock-check api/skills.lock` passes locally
+- [ ] If any `SKILL.md` changed: ran `./scripts/update_lock.sh` and committed `api/skills.lock`
 - [ ] Wrong pattern and correct fix both present (if adding an antipattern)
 - [ ] Version numbers are pinned, not "latest"
 ```
